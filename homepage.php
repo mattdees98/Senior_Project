@@ -14,7 +14,7 @@ include 'data.php';
 <body>
     <div class="nav-header">
       <div class="list-of-monuments">
-        <h2><a href="listOfMonuments.html">Monument list</a></h2>
+        <h2><a href="listOfMonuments.php">Monument list</a></h2>
       </div>
       <div class="page-title">
         <h1><a href="homepage.php">Monumental Anxiety</a></h1>
@@ -27,9 +27,9 @@ include 'data.php';
       </p>
       <p id="instruct"><b>Using the map</b></p>
       <p>
-        Click once on a monument marker on the map to see a short excerpt of information about that specific monument. Click twice on it to see the full information on it.
+        Click once on a monument marker on the map to see a short excerpt of information about that specific monument.
       </p>
-      <img src="homepage.jpg" alt="homepage image"/>
+      <img src="./images/homepage.jpg" alt="homepage image"/>
     </div>
     <div id='sidebar-monument'></div>
     <div id='map' class='map'></div>
@@ -77,8 +77,13 @@ include 'data.php';
                     .setLngLat([marker.longitude,marker.latitude])
                     .addTo(map);
 
-                el.addEventListener('click', () => {
+                // changes color of clicked marker
+                $('.marker').click(function(){
+                    $('.marker.lastclicked').removeClass('lastclicked');
+                    $(this).addClass('lastclicked');
+                }) 
 
+                el.addEventListener('click', () => {
                     //alert(marker); //this works to show what coordinates you click
                     var location = [marker.longitude,marker.latitude]; // location equals the coordinates you click
                     //alert(location);
@@ -89,7 +94,7 @@ include 'data.php';
 
                     var sidebarInfo = document.getElementById("sidebar-monument");
                     sidebarInfo.innerHTML = '<h1 id="location-title">' + marker.monument_name + '</h1>' + 
-                        '<img id="sidebar-image" src="./monument_data/' + marker.monument_picture + '"/>' +
+                        '<img id="sidebar-image" src="./uploads/' + marker.monument_picture + '"/>' +
                         /*'<h3 id="monument-address">' + currentFeature.properties.address + '</h3>' + */
                         '<p id="monument-sidebar-text">' + marker.monument_description + '</p>';/* +
                         '<br /><br />' +
